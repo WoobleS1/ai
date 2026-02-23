@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>AI</title>
+  <title>AI cu Microfon</title>
   <style>
     html, body {
       margin: 0;
@@ -13,7 +13,7 @@
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
-      align-items: stretch; /* iframe-ul se întinde pe verticală */
+      align-items: stretch;
       background: #fff;
     }
 
@@ -28,17 +28,50 @@
       width: 100%;
       border: none;
     }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: #fff;
+      color: #000;
+      text-align: center;
+      padding-top: 40%;
+      font-size: 18px;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
 
   <div class="iframe-container">
     <iframe 
-      src="https://86.124.52.207:443" 
+      src="https://86.124.52.207"
+      allow="microphone; fullscreen"
       allowfullscreen
       loading="lazy">
     </iframe>
   </div>
+
+  <div class="overlay" id="overlay">
+    Te rugăm să deschizi acest link în browser (Chrome/Safari) pentru a folosi microfonul.
+  </div>
+
+  <script>
+    function isInAppBrowser() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      // Detectează Messenger, Instagram, Facebook in-app browser
+      return /FBAN|FBAV|Messenger|Instagram/i.test(ua);
+    }
+
+    if (isInAppBrowser()) {
+      // Ascunde iframe și arată mesaj
+      document.querySelector('.iframe-container').style.display = 'none';
+      document.getElementById('overlay').style.display = 'block';
+      // Poți, dacă vrei, să dai și redirect automat
+      // window.location.href = "https://86.124.52.207";
+    }
+  </script>
 
 </body>
 </html>
